@@ -1,6 +1,6 @@
 # 📚 Sistema de Gerenciamento de Alunos
 
-Projeto desenvolvido em Python para praticar fundamentos de desenvolvimento de software, organização de código e testes automatizados.
+Projeto desenvolvido em Python para praticar fundamentos de desenvolvimento de software, organização de código, persistência de dados e testes automatizados.
 
 ## 📝 Sobre o projeto
 
@@ -13,7 +13,7 @@ O sistema permite realizar o gerenciamento de alunos por meio de operações CRU
 - Cálculo da média das notas
 - Verificação da situação do aluno
 
-Os dados são persistidos em arquivo JSON.
+Os dados são armazenados em um arquivo JSON.
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -28,64 +28,69 @@ Os dados são persistidos em arquivo JSON.
 - Funções
 - Módulos
 - Estruturas de dados
-- Dicionários e listas
+- Listas e dicionários
 - Tratamento de exceções
 - Type hints
-- Persistência de dados
+- Persistência de dados em JSON
+- Operações CRUD
 - Testes automatizados
-- Fixtures
-- Parametrização com pytest
+- Fixtures com pytest
+- Parametrização de testes
 
-## 🧪 Testes
+## ✨ Funcionalidades
 
-O projeto possui testes automatizados utilizando pytest.
+### Cadastrar aluno
+Permite cadastrar um novo aluno com:
 
-Atualmente, o projeto possui **14 testes passando**.
+- Nome
+- Idade
+- Curso
+- Notas
 
-## ▶️ Como executar
+O sistema impede o cadastro duplicado de um aluno com o mesmo nome.
 
-Clone o repositório:
+### Buscar aluno
+Permite buscar um aluno cadastrado e exibir:
 
-```bash
-git clone https://github.com/PauloEduardoVF/sistema-gerenciamento-alunos.git
-```
+- Idade
+- Curso
+- Notas
+- Média
+- Situação
 
-Entre na pasta:
+### Atualizar aluno
+Permite alterar os dados de um aluno já cadastrado.
 
-```bash
-cd alunos_projeto
-```
+### Remover aluno
+Permite remover um aluno do sistema.
 
-Execute o programa:
+### Calcular média
+O sistema calcula automaticamente a média das notas do aluno.
 
-```bash
-python main.py
-```
+### Verificar situação
+Com base na média, o sistema informa se o aluno está:
 
-## 🧪 Executando os testes
+- Aprovado
+- Reprovado
 
-```bash
-pytest
-```
+## 🧪 Testes automatizados
 
-Resultado atual:
+O projeto utiliza `pytest` para testar as principais funcionalidades do sistema.
+
+Entre os cenários testados estão:
+
+- Cálculo de média
+- Verificação da situação
+- Cadastro de aluno
+- Cadastro duplicado
+- Busca de aluno
+- Busca de aluno inexistente
+- Atualização de aluno
+- Atualização de aluno inexistente
+- Remoção de aluno
+- Remoção de aluno inexistente
+
+Atualmente, o projeto possui:
 
 ```text
 14 passed
-```
-
-## 📂 Estrutura do projeto
-
-```text
-alunos_projeto/
-├── alunos.py
-├── arquivos.py
-├── main.py
-├── test_alunos.py
-├── README.md
-└── .gitignore
-```
-
-## 🎯 Objetivo
-
-Este projeto faz parte dos meus estudos em Engenharia de Software e representa minha evolução prática em Python, Git/GitHub e testes automatizados, com foco futuro em Dados e Inteligência Artificial.
