@@ -47,7 +47,7 @@ Atualmente, o projeto possui **14 testes passando**.
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/PauloEduardoVF/sistema-gerenciamento-alunos.git
 ```
 
 Entre na pasta:
