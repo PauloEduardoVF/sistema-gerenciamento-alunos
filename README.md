@@ -94,3 +94,32 @@ Atualmente, o projeto possui:
 
 ```text
 14 passed
+<<<<<<< HEAD
+=======
+
+## 🚀 Próximas melhorias
+
+Algumas evoluções planejadas para o projeto:
+
+- Melhorar as validações de entrada
+- Adicionar novos testes automatizados
+- Implementar persistência com banco de dados SQL
+- Criar uma API para o sistema
+- Melhorar a organização da aplicação
+- Configurar integração contínua com GitHub Actions
+
+## 🎯 Objetivo
+
+Este projeto faz parte dos meus estudos em Engenharia de Software e representa minha evolução prática em Python, Git/GitHub, organização de código e testes automatizados.
+
+Meu objetivo é continuar evoluindo em desenvolvimento de software, dados e Inteligência Artificial.
+
+## 👨‍💻 Autor
+
+**Paulo Eduardo**
+
+Estudante de Engenharia de Software
+
+- GitHub: [PauloEduardoVF](https://github.com/PauloEduardoVF)
+- LinkedIn: [Paulo Eduardo](https://www.linkedin.com/in/paulo-eduardo-8788a3316/)
+>>>>>>> 99aa68b (docs: completa README com melhorias e autor)
