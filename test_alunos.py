@@ -1,6 +1,7 @@
 import pytest
+import json
 from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno
-
+from arquivos import ler_arquivo, salvar_arquivo
 
 @pytest.fixture
 def arquivo_teste():
@@ -139,3 +140,46 @@ def test_remover_aluno_inexistente(arquivo_teste):
     resultado = remover_aluno(arquivo_teste, 'Joao')
 
     assert not resultado
+
+def test_salvar_e_ler_arquivos(tmp_path):
+    arquivo_teste = tmp_path / "Teste.json"
+
+    dados = {
+        "Joao": {
+            "idade": 20,
+            "curso": "Engenharia de Software"
+        }
+    }
+
+    salvar_arquivo(arquivo_teste, dados)
+
+    resultado = ler_arquivo(arquivo_teste)
+
+    assert  resultado == dados
+
+def test_ler_arquivo_json_invalido(tmp_path):
+    arquivo_teste = tmp_path / "Invalido.json"
+
+    arquivo_teste.write_text(
+        '{"nome": "João" ',
+        encoding='utf-8'
+    )
+
+    resultado = ler_arquivo(arquivo_teste)
+
+    assert resultado is None
+
+def test_salvar_arquivo_mantem_acentos(tmp_path):
+
+    arquivo_teste = tmp_path / "acentos.json"
+
+    dados = {
+        "nome": "João",
+        "curso": "Engenharia de Software"
+    }
+
+    salvar_arquivo(arquivo_teste, dados)
+
+    conteudo = arquivo_teste.read_text(encoding="utf-8")
+
+    assert "João" in conteudo
