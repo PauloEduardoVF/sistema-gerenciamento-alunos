@@ -183,3 +183,10 @@ def test_salvar_arquivo_mantem_acentos(tmp_path):
     conteudo = arquivo_teste.read_text(encoding="utf-8")
 
     assert "João" in conteudo
+
+def test_ler_arquivo_inexistente(tmp_path):
+    arquivo_teste = tmp_path / "nao_existe.json"
+    resultado = ler_arquivo(arquivo_teste)
+
+    assert resultado is None
+
