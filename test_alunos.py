@@ -1,6 +1,5 @@
 import pytest
-import json
-from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno
+from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas
 from arquivos import ler_arquivo, salvar_arquivo
 
 @pytest.fixture
@@ -36,6 +35,19 @@ def test_calcular_media(notas, esperado):
 )
 def test_verificar_situacao(notas, esperado):
     assert verificar_situacao(notas) == esperado
+
+@pytest.mark.parametrize(
+        "notas, esperado",
+        [
+            ([7, 8, 9, 10], True),
+            ([5, 6.5, 8, 9], True),
+            ([7, 11, 8, 9], False),
+            ([-1, 5, 8, 9], False),
+        ]
+    
+)
+def test_validar_notas(notas,esperado):
+    assert validar_notas(notas) == esperado
 
 
 def test_adicionar_aluno(arquivo_teste):
@@ -190,3 +202,17 @@ def test_ler_arquivo_inexistente(tmp_path):
 
     assert resultado is None
 
+def test_adicionar_aluno_com_nota_invalida(arquivo_teste):
+
+    resultado = adicionar_aluno(
+        arquivo_teste,
+        "Joao",
+        20,
+        "Engenharia de Software",
+        [8, 7, 11, 9]
+    )
+
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+
+    assert resultado is False
+    assert aluno is None

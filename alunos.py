@@ -4,6 +4,9 @@ from typing import Any
 
 def adicionar_aluno(nome_arquivo: str, nome: str, idade: int, 
                     curso: str, notas: list[float]) -> bool:
+    if not validar_notas(notas):
+        return False
+
     arquivo = ler_arquivo(nome_arquivo)
 
     if arquivo is None:
@@ -77,3 +80,8 @@ def atualizar_aluno(nome_arquivo: str, nome_aluno: str, idade: int,
     salvar_arquivo(nome_arquivo, arquivo)
     return True
 
+def validar_notas(notas: list[float]) -> bool:
+    for nota in notas:
+        if not 0 <= nota <= 10:
+            return False
+    return True
