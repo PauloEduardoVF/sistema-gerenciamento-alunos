@@ -72,6 +72,9 @@ def atualizar_aluno(nome_arquivo: str, nome_aluno: str, idade: int,
     if arquivo is None or nome_aluno not in arquivo:
         return False
 
+    if not validar_notas(notas):
+        return False
+
     aluno = arquivo.get(nome_aluno)
     aluno['idade'] = idade
     aluno['curso'] = curso

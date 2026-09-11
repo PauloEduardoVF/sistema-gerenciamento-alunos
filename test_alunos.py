@@ -216,3 +216,25 @@ def test_adicionar_aluno_com_nota_invalida(arquivo_teste):
 
     assert resultado is False
     assert aluno is None
+
+def test_atualizar_aluno_com_nota_invalida(arquivo_teste):
+    adicionar_aluno(
+            arquivo_teste,
+            "Joao",
+            20,
+            "Engenharia de Software",
+            [8, 9, 7, 10],
+            )
+    
+    resultado = atualizar_aluno(arquivo_teste,
+                                    "Joao",
+                                    21,
+                                    "Engenharia de AI",
+                                    [7, 8, -2, 9],
+                                    )
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+    
+    assert resultado is False
+    assert aluno["idade"] == 20
+    assert aluno["curso"] == "Engenharia de Software"
+    assert aluno["notas"] == [8, 9, 7, 10]
