@@ -10,6 +10,9 @@ def adicionar_aluno(nome_arquivo: str, nome: str, idade: int,
     if not validar_idade(idade):
         return False
 
+    if not validar_nome(nome):
+        return False
+
     arquivo = ler_arquivo(nome_arquivo)
 
     if arquivo is None:
@@ -99,3 +102,11 @@ def validar_idade(idade: int) -> bool:
     if idade >= 1:
         return True
     return False
+
+def validar_nome(nome: str) -> bool:
+    nome_limpo = nome.strip()
+
+    if len(nome_limpo) < 2:
+        return False
+    
+    return True

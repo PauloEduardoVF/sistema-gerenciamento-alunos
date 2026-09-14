@@ -1,5 +1,5 @@
 import pytest
-from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas, validar_idade
+from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas, validar_idade, validar_nome
 from arquivos import ler_arquivo, salvar_arquivo
 
 @pytest.fixture
@@ -59,6 +59,19 @@ def test_validar_notas(notas,esperado):
 )
 def test_validade_idade(idade,esperado):
     assert validar_idade(idade) == esperado
+
+@pytest.mark.parametrize(
+        "nome, esperado",
+        [
+            ("Joao", True),
+            (" Ana ", True),
+            ("", False),
+            ("   ", False),
+            ("A", False),
+        ]
+)
+def test_validar_nome(nome,esperado):
+    assert validar_nome(nome) == esperado
 
 def test_adicionar_aluno(arquivo_teste):
     resultado = adicionar_aluno(
@@ -284,3 +297,13 @@ def test_atualizar_aluno_com_idade_invalida(arquivo_teste):
 
     assert resultado is False
     assert aluno["idade"] == 20
+
+def test_adicionar_nome_aluno_invalido(arquivo_teste):
+    resultado = adicionar_aluno(
+        arquivo_teste,
+        "   ",
+        20,
+        "Engenharia de Software",
+        [8, 9, 7, 10]
+    )
+    assert resultado is False
