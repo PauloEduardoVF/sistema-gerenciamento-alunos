@@ -7,6 +7,9 @@ def adicionar_aluno(nome_arquivo: str, nome: str, idade: int,
     if not validar_notas(notas):
         return False
 
+    if not validar_idade(idade):
+        return False
+
     arquivo = ler_arquivo(nome_arquivo)
 
     if arquivo is None:
@@ -75,6 +78,9 @@ def atualizar_aluno(nome_arquivo: str, nome_aluno: str, idade: int,
     if not validar_notas(notas):
         return False
 
+    if not validar_idade(idade):
+        return False
+
     aluno = arquivo.get(nome_aluno)
     aluno['idade'] = idade
     aluno['curso'] = curso
@@ -88,3 +94,8 @@ def validar_notas(notas: list[float]) -> bool:
         if not 0 <= nota <= 10:
             return False
     return True
+
+def validar_idade(idade: int) -> bool:
+    if idade >= 1:
+        return True
+    return False

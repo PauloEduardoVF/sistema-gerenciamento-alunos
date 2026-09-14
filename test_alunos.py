@@ -1,5 +1,5 @@
 import pytest
-from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas
+from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas, validar_idade
 from arquivos import ler_arquivo, salvar_arquivo
 
 @pytest.fixture
@@ -44,11 +44,21 @@ def test_verificar_situacao(notas, esperado):
             ([7, 11, 8, 9], False),
             ([-1, 5, 8, 9], False),
         ]
-    
 )
 def test_validar_notas(notas,esperado):
     assert validar_notas(notas) == esperado
 
+@pytest.mark.parametrize(
+    "idade, esperado",
+    [
+        (20, True),
+        (1, True),
+        (0, False),
+        (-5, False),
+    ]
+)
+def test_validade_idade(idade,esperado):
+    assert validar_idade(idade) == esperado
 
 def test_adicionar_aluno(arquivo_teste):
     resultado = adicionar_aluno(
@@ -238,3 +248,39 @@ def test_atualizar_aluno_com_nota_invalida(arquivo_teste):
     assert aluno["idade"] == 20
     assert aluno["curso"] == "Engenharia de Software"
     assert aluno["notas"] == [8, 9, 7, 10]
+
+def test_adicionar_aluno_com_idade_invalida(arquivo_teste):
+    resultado = adicionar_aluno(
+        arquivo_teste,
+        "Joao",
+        0,
+        "Engenharia de Software",
+        [8, 9, 7, 10]
+    )
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+
+    assert resultado is False
+    assert aluno is None
+
+def test_atualizar_aluno_com_idade_invalida(arquivo_teste):
+
+    adicionar_aluno(
+        arquivo_teste,
+        "Joao",
+        20,
+        "Engenharia de Software",
+        [8, 9, 7, 10]
+    )
+
+    resultado = atualizar_aluno(
+        arquivo_teste,
+        "Joao",
+        0,
+        "Engenharia de AI",
+        [8, 9, 7, 10]
+    )
+
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+
+    assert resultado is False
+    assert aluno["idade"] == 20
