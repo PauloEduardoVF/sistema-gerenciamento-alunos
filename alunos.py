@@ -13,6 +13,9 @@ def adicionar_aluno(nome_arquivo: str, nome: str, idade: int,
     if not validar_nome(nome):
         return False
 
+    if not validar_curso(curso):
+        return False
+
     arquivo = ler_arquivo(nome_arquivo)
 
     if arquivo is None:
@@ -84,6 +87,9 @@ def atualizar_aluno(nome_arquivo: str, nome_aluno: str, idade: int,
     if not validar_idade(idade):
         return False
 
+    if not validar_curso(curso):
+        return False
+
     aluno = arquivo.get(nome_aluno)
     aluno['idade'] = idade
     aluno['curso'] = curso
@@ -110,3 +116,13 @@ def validar_nome(nome: str) -> bool:
         return False
     
     return True
+
+def validar_curso(curso: str) -> bool:
+
+    curso_limpo = curso.strip()
+
+    if len(curso_limpo) < 3:
+        return False
+    
+    return True
+

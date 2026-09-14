@@ -1,5 +1,5 @@
 import pytest
-from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas, validar_idade, validar_nome
+from alunos import calcular_media, verificar_situacao, adicionar_aluno, buscar_aluno, remover_aluno, atualizar_aluno, validar_notas, validar_idade, validar_nome, validar_curso
 from arquivos import ler_arquivo, salvar_arquivo
 
 @pytest.fixture
@@ -72,6 +72,19 @@ def test_validade_idade(idade,esperado):
 )
 def test_validar_nome(nome,esperado):
     assert validar_nome(nome) == esperado
+
+@pytest.mark.parametrize(
+        "curso, esperado",
+        [
+            ("Engenharia de Software", True),
+            ("ADS", True),
+            ("", False),
+            ("   ", False),
+            ("TI", False),
+        ]
+)
+def test_validar_curso(curso, esperado):
+    assert validar_curso(curso) == esperado
 
 def test_adicionar_aluno(arquivo_teste):
     resultado = adicionar_aluno(
@@ -307,3 +320,40 @@ def test_adicionar_nome_aluno_invalido(arquivo_teste):
         [8, 9, 7, 10]
     )
     assert resultado is False
+
+def test_adicionar_aluno_com_curso_invalido(arquivo_teste):
+
+    resultado = adicionar_aluno(
+        arquivo_teste,
+        "Joao",
+        20,
+        "   ",
+        [8, 9, 7, 10]
+    )
+
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+
+    assert resultado is False
+    assert aluno is None
+
+def test_atualizar_aluno_com_curso_invalido(arquivo_teste):
+    adicionar_aluno(
+        arquivo_teste,
+        "Joao",
+        20,
+        "Engenharia de Software",
+        [8, 9, 7, 10]
+    )
+
+    resuldado = atualizar_aluno(
+        arquivo_teste,
+        "Joao",
+        21,
+        "   ",
+        [8, 9, 7, 10]
+    )
+
+    aluno = buscar_aluno(arquivo_teste, "Joao")
+
+    assert resuldado is False
+    assert aluno["curso"] == "Engenharia de Software"
