@@ -2,5 +2,5 @@ __pycache__/
 *.pyc
 
 alunos_dados.json
-
+*.bd
 *.db
