@@ -95,8 +95,9 @@ def listar_alunos_com_notas_sql() -> list[tuple]:
 
     return resultado
 
-def buscar_aluno_sql(nome: str):
-    conexao = conectar_banco()
+def buscar_aluno_sql(nome: str, nome_banco: str = "alunos.db") -> tuple | None:
+
+    conexao = conectar_banco(nome_banco)
     cursor = conexao.cursor()
 
     cursor.execute(
@@ -109,7 +110,7 @@ def buscar_aluno_sql(nome: str):
     )
 
     aluno = cursor.fetchone ()
-    cursor.close()
+    conexao.close()
 
     return aluno
 
@@ -158,6 +159,44 @@ def buscar_aluno_completo_sql(nome: str) -> dict | None:
     }
 
     return resultado
+
+def atualizar_aluno_sql(aluno_id: int, idade: int, curso: str, 
+                        nome_banco: str = "alunos.db") -> bool:
+
+    conexao = conectar_banco(nome_banco)
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        UPDATE alunos
+        SET idade = ?, curso = ?
+        WHERE id = ?
+    """, (idade, curso, aluno_id))
+
+    conexao.commit()
+    status = cursor.rowcount > 0
+
+    conexao.close()
+    
+    return status
+
+def remover_aluno_sql(aluno_id: int, nome_banco: str = "alunos.db") -> bool:
+
+    conexao = conectar_banco(nome_banco)
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        DELETE FROM alunos
+        WHERE id = ?
+        """, 
+        (aluno_id,)
+    )
+
+    conexao.commit()
+    status = cursor.rowcount > 0
+
+    conexao.close()
+
+    return status
 
 
     
